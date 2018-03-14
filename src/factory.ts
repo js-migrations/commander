@@ -20,10 +20,12 @@ export default (factoryConfig: FactoryConfig) => {
   program.command('migrate [key]')
     .description('Migrates all unprocessed migrations or a single migration by key')
     .option('-f, --force', 'Allows a processed migrations to be reprocessed')
+    .option('-d, --dry', 'Runs the migration without processing any migrations')
     .action(migrate(facadeConfig));
   program.command('rollback [key]')
-    .description('Rollsback all processed migrations or a single migration by key')
-    .option('-f, --force', 'Allows an unprocessed migrations to be rolledback')
+    .description('Rolls back all processed migrations or a single migration by key')
+    .option('-f, --force', 'Allows an unprocessed migrations to be rolled back')
+    .option('-d, --dry', 'Runs the roll back without processing any migrations')
     .action(rollback(facadeConfig));
   program.command('list-migrations')
     .description('Lists all of the available migrations')

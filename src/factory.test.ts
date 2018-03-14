@@ -4,6 +4,8 @@ sourceMapSupport.install();
 import ServiceFacade from '@js-migrations/core/dist/Facade';
 import serviceFactory from '@js-migrations/core/dist/factory';
 import factoryTest from '@js-migrations/core/dist/factoryTest';
+import { Opts as MigrateOpts } from '@js-migrations/core/dist/migrate/Signature';
+import { Opts as RollbackOpts } from '@js-migrations/core/dist/rollback/Signature';
 import testRepoFactory from '@js-migrations/core/dist/utils/tests/testRepoFactory';
 import { Command } from 'commander';
 import presenterFactory from './factory';
@@ -11,6 +13,7 @@ import ErrorHandler from './utils/ErrorHandler';
 import defaultErrorHandler from './utils/handleError';
 
 factoryTest((migrations): ServiceFacade => {
+  const initArgs = [process.argv[0], process.argv[1]];
   const repo = testRepoFactory(migrations);
   const log = () => null;
   const service = serviceFactory({ log, repo });
@@ -21,42 +24,46 @@ factoryTest((migrations): ServiceFacade => {
   return {
     clearMigrations: service.clearMigrations,
     getMigrations: service.getMigrations,
-    migrate: async () => {
+    migrate: async (opts: MigrateOpts = {}) => {
       return new Promise<void>((resolve, reject) => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
+        const dryArgs = opts.dryRun === undefined ? [] : ['-d'];
         presenterFactory({ program, service, exitProcess, handleError, log });
-        program.parse([process.argv[0], process.argv[1], 'migrate']);
+        program.parse([...initArgs, 'migrate', ...dryArgs]);
       });
     },
-    migrateByKey: async ({ key, force }) => {
+    migrateByKey: async ({ key, force, dryRun }) => {
       return new Promise<void>((resolve, reject) => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError, log });
         const forceArgs = force === undefined ? [] : ['-f'];
-        program.parse([process.argv[0], process.argv[1], 'migrate', ...forceArgs, key]);
+        const dryArgs = dryRun === undefined ? [] : ['-d'];
+        presenterFactory({ program, service, exitProcess, handleError, log });
+        program.parse([...initArgs, 'migrate', ...forceArgs, ...dryArgs, key]);
       });
     },
-    rollback: async () => {
+    rollback: async (opts: RollbackOpts = {}) => {
+      return new Promise<void>((resolve, reject) => {
+        const program = new Command();
+        const handleError = createErrorHandler(reject);
+        const dryArgs = opts.dryRun === undefined ? [] : ['-d'];
+        const exitProcess = () => { resolve(); };
+        presenterFactory({ program, service, exitProcess, handleError, log });
+        program.parse([...initArgs, 'rollback', ...dryArgs]);
+      });
+    },
+    rollbackByKey: async ({ key, force, dryRun }) => {
       return new Promise<void>((resolve, reject) => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError, log });
-        program.parse([process.argv[0], process.argv[1], 'rollback']);
-      });
-    },
-    rollbackByKey: async ({ key, force }) => {
-      return new Promise<void>((resolve, reject) => {
-        const program = new Command();
-        const handleError = createErrorHandler(reject);
-        const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError, log });
         const forceArgs = force === undefined ? [] : ['-f'];
-        program.parse([process.argv[0], process.argv[1], 'rollback', ...forceArgs, key]);
+        const dryArgs = dryRun === undefined ? [] : ['-d'];
+        presenterFactory({ program, service, exitProcess, handleError, log });
+        program.parse([...initArgs, 'rollback', ...forceArgs, ...dryArgs, key]);
       });
     },
   };

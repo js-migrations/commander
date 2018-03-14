@@ -25,7 +25,7 @@
     "check-coverage": true
   },
   "dependencies": {
-    "@js-migrations/core": "^5.0.0",
+    "@js-migrations/core": "^5.1.0",
     "colors": "^1.2.1",
     "commander": "^2.15.0",
     "lodash": "^4.17.5"
