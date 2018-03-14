@@ -45,8 +45,10 @@ const handlerError: ErrorHandler = (err, logError = defaultErrorLogger) => {
     return;
   }
   /* istanbul ignore next */
-  logError('Unexpected error', err);
-  return;
+  {
+    logError('Unexpected error', err);
+    return;
+  }
 };
 
 export default handlerError;
