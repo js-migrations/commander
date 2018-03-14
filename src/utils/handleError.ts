@@ -16,29 +16,37 @@ const defaultErrorLogger = (message: string, ...args: any[]) => {
 
 const handlerError: ErrorHandler = (err, logError = defaultErrorLogger) => {
   if (err instanceof DuplicateKeyError) {
-    return logError(`Duplicate migration (${err.key})`);
+    logError(`Duplicate migration (${err.key})`);
+    return;
   }
   if (err instanceof FailingMigrationError) {
-    return logError(`Migration (${err.key}) failed`, err.error);
+    logError(`Migration (${err.key}) failed`, err.error);
+    return;
   }
   if (err instanceof LockedMigrationsError) {
-    return logError('Migrations are locked');
+    logError('Migrations are locked');
+    return;
   }
   if (err instanceof MissingMigrationError) {
-    return logError(`Missing migrations (${err.key})`);
+    logError(`Missing migrations (${err.key})`);
+    return;
   }
   if (err instanceof ProcessedMigrationError) {
-    return logError(`Already processed migration (${err.key})`);
+    logError(`Already processed migration (${err.key})`);
+    return;
   }
   if (err instanceof UnprocessedMigrationError) {
-    return logError(`Unprocessed migration (${err.key})`);
+    logError(`Unprocessed migration (${err.key})`);
+    return;
   }
   /* istanbul ignore next */
   if (err instanceof Error) {
-    return logError(`Unexpected error: ${err.message}`, err);
+    logError(`Unexpected error: ${err.message}`, err);
+    return;
   }
   /* istanbul ignore next */
-  return logError('Unexpected error', err);
+  logError('Unexpected error', err);
+  return;
 };
 
 export default handlerError;
