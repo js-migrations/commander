@@ -1,7 +1,7 @@
 import FacadeConfig from '../FacadeConfig';
 import catchErrors from '../utils/catchErrors';
 
-export default ({ service, handleError, exitProcess }: FacadeConfig) => {
+export default ({ service, handleError, exitProcess, log }: FacadeConfig) => {
   return async (key?: string, { force }: any = {}) => {
     await catchErrors(handleError, async () => {
       if (key !== undefined) {
@@ -10,6 +10,7 @@ export default ({ service, handleError, exitProcess }: FacadeConfig) => {
         await service.rollback();
       }
     });
+    log('');
     exitProcess();
   };
 };

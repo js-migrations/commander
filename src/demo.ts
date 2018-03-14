@@ -9,10 +9,11 @@ import { Command } from 'commander';
 import factory from './factory';
 
 const program = new Command();
+const log = (message: string) => {
+  console.log(colors.cyan(message));
+};
 const service = serviceFactory({
-  log: (message) => {
-    console.log(colors.cyan(message));
-  },
+  log,
   repo: repoFactory([{
     down: async () => { console.log('A log from test1 down'); },
     key: 'test1',
@@ -24,6 +25,6 @@ const service = serviceFactory({
   }]),
 });
 
-factory({ program, service });
+factory({ program, service, log });
 
 program.parse(process.argv);

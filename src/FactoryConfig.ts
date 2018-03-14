@@ -7,4 +7,5 @@ export default interface FactoryConfig {
   readonly service: ServiceFacade;
   readonly handleError?: ErrorHandler;
   readonly exitProcess?: () => void;
+  readonly log?: (message: string) => void;
 }

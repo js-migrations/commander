@@ -5,4 +5,5 @@ export default interface FacadeConfig {
   readonly service: ServiceFacade;
   readonly handleError: ErrorHandler;
   readonly exitProcess: () => void;
+  readonly log: (message: string) => void;
 }

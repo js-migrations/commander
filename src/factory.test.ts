@@ -26,7 +26,7 @@ factoryTest((migrations): ServiceFacade => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError });
+        presenterFactory({ program, service, exitProcess, handleError, log });
         program.parse([process.argv[0], process.argv[1], 'migrate']);
       });
     },
@@ -35,7 +35,7 @@ factoryTest((migrations): ServiceFacade => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError });
+        presenterFactory({ program, service, exitProcess, handleError, log });
         const forceArgs = force === undefined ? [] : ['-f'];
         program.parse([process.argv[0], process.argv[1], 'migrate', ...forceArgs, key]);
       });
@@ -45,7 +45,7 @@ factoryTest((migrations): ServiceFacade => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError });
+        presenterFactory({ program, service, exitProcess, handleError, log });
         program.parse([process.argv[0], process.argv[1], 'rollback']);
       });
     },
@@ -54,7 +54,7 @@ factoryTest((migrations): ServiceFacade => {
         const program = new Command();
         const handleError = createErrorHandler(reject);
         const exitProcess = () => { resolve(); };
-        presenterFactory({ program, service, exitProcess, handleError });
+        presenterFactory({ program, service, exitProcess, handleError, log });
         const forceArgs = force === undefined ? [] : ['-f'];
         program.parse([process.argv[0], process.argv[1], 'rollback', ...forceArgs, key]);
       });
