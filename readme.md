@@ -3,7 +3,7 @@
 
 ### Usage
 1. Install it with `npm i @js-migrations/commander`.
-1. [Create the service facade with @js-migrations/core](https://github.com/js-migrations/core#use-the-factory).
+1. [Create the service facade with @js-migrations/core](https://github.com/js-migrations/core#usage).
 1. [Use the factory to create the presenter facade](#use-the-factory).
 1. [Use the CLI](#use-the-cli).
 
