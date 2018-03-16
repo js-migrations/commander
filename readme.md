@@ -14,6 +14,18 @@ import { Command } from 'commander';
 
 const program = new Command();
 const migrationsRepoFacade = commanderMigrationsPresenterFactory({
+  // Optional property to exit when migrations are completed. Defaults to `process.exit`.
+  exitProcess: () => {
+    process.exit();
+  },
+  // Optional property to handle migration errors. Defaults to "utils/handleError".
+  handleError: (err) => {
+    console.error(err);
+  },
+  // Optional property to log output. Defaults to `console.log`.
+  log: (message) => {
+    console.log(message);
+  },
   program,
   service: migrationsServiceFacade,
 });
