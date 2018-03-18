@@ -22,9 +22,9 @@ const migrationsRepoFacade = commanderMigrationsPresenterFactory({
   handleError: (err) => {
     console.error(err);
   },
-  // Optional property to log output. Defaults to `console.log`.
-  log: (message) => {
-    console.log(message);
+  // Optional property to log output. Defaults to "utils/defaultLog".
+  log: (status) => {
+    console.log(status);
   },
   program,
   service: migrationsServiceFacade,
