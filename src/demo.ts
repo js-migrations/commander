@@ -4,16 +4,12 @@ sourceMapSupport.install();
 
 import serviceFactory from '@js-migrations/core/dist/factory';
 import repoFactory from '@js-migrations/core/dist/utils/tests/testRepoFactory';
-import * as colors from 'colors';
 import { Command } from 'commander';
 import factory from './factory';
 
 const program = new Command();
-const log = (message: string) => {
-  console.log(colors.cyan(message));
-};
+
 const service = serviceFactory({
-  log,
   repo: repoFactory([{
     down: async () => { console.log('A log from test1 down'); },
     key: 'test1',
@@ -25,6 +21,6 @@ const service = serviceFactory({
   }]),
 });
 
-factory({ program, service, log });
+factory({ program, service });
 
 program.parse(process.argv);

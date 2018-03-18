@@ -1,4 +1,5 @@
 import ServiceFacade from '@js-migrations/core/dist/Facade';
+import Status from '@js-migrations/core/dist/utils/statuses/Status';
 import { Command } from 'commander';
 import ErrorHandler from './utils/ErrorHandler';
 
@@ -7,5 +8,5 @@ export default interface FactoryConfig {
   readonly service: ServiceFacade;
   readonly handleError?: ErrorHandler;
   readonly exitProcess?: () => void;
-  readonly log?: (message: string) => void;
+  readonly log?: (status: Status) => void;
 }
