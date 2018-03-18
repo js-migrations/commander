@@ -4,6 +4,7 @@ import FactoryConfig from './FactoryConfig';
 import getMigrations from './functions/getMigrations';
 import migrate from './functions/migrate';
 import rollback from './functions/rollback';
+import defaultLog from './utils/defaultLog';
 import handleError from './utils/handleError';
 
 export default (factoryConfig: FactoryConfig) => {
@@ -14,7 +15,7 @@ export default (factoryConfig: FactoryConfig) => {
       process.exit();
     }),
     handleError: defaultTo(factoryConfig.handleError, handleError),
-    log: defaultTo(factoryConfig.log, console.log.bind(console)),
+    log: defaultTo(factoryConfig.log, defaultLog),
     service: factoryConfig.service,
   };
   program.command('migrate [key]')

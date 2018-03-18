@@ -5,12 +5,11 @@ export default ({ service, handleError, exitProcess, log }: FacadeConfig) => {
   return async (key?: string, { force, dry }: any = {}) => {
     await catchErrors(handleError, async () => {
       if (key !== undefined) {
-        await service.migrateByKey({ key, force, dryRun: dry });
+        await service.migrateByKey({ key, log, force, dryRun: dry });
       } else {
-        await service.migrate({ dryRun: dry });
+        await service.migrate({ log, dryRun: dry });
       }
     });
-    log('');
     exitProcess();
   };
 };

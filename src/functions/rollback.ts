@@ -5,12 +5,11 @@ export default ({ service, handleError, exitProcess, log }: FacadeConfig) => {
   return async (key?: string, { force, dry }: any = {}) => {
     await catchErrors(handleError, async () => {
       if (key !== undefined) {
-        await service.rollbackByKey({ key, force, dryRun: dry });
+        await service.rollbackByKey({ key, log, force, dryRun: dry });
       } else {
-        await service.rollback({ dryRun: dry });
+        await service.rollback({ log, dryRun: dry });
       }
     });
-    log('');
     exitProcess();
   };
 };
