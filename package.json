@@ -25,10 +25,10 @@
     "check-coverage": true
   },
   "dependencies": {
-    "@js-migrations/core": "^6.2.0",
-    "colors": "^1.2.1",
-    "commander": "^2.15.0",
-    "lodash": "^4.17.5"
+    "@js-migrations/core": "6.2.0",
+    "colors": "1.2.5",
+    "commander": "2.15.1",
+    "lodash": "4.17.10"
   },
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.0.31",
