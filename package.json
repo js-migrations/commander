@@ -36,7 +36,7 @@
     "@types/commander": "2.12.2",
     "@types/lodash": "4.14.116",
     "@types/mocha": "5.2.5",
-    "@types/node": "8.10.24",
+    "@types/node": "8.10.25",
     "@types/source-map-support": "0.4.1",
     "assert-rejects": "0.1.1",
     "jscpd": "0.6.22",
