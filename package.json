@@ -7,7 +7,7 @@
     "url": "https://github.com/js-migrations/commander"
   },
   "author": "js-migrations",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "files": [
     "dist"
   ],
